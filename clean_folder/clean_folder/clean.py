@@ -107,6 +107,16 @@ def normalize(filename):
     return new_string
 
 
+def del_empty_dirs(trg_path=argv_path):
+    for dirpath, _, _ in os.walk(trg_path, topdown=False):  # Listing the files
+        if dirpath == trg_path:
+            break
+        try:
+            os.rmdir(dirpath)
+        except OSError as ex:
+            print(ex)
+
+
 def sorter(path=argv_path):
     """
     Recursively walks in the target folder, moves files to appropriate folders
@@ -171,10 +181,7 @@ def sorter(path=argv_path):
             else:
                 sorter(target_dir / file)
 
-    # Delete empty dirs
-    for p in Path(target_dir).glob('**/*'):
-        if p.is_dir() and len(list(p.iterdir())) == 0:
-            os.removedirs(p)
+    del_empty_dirs()
 
     return
 
