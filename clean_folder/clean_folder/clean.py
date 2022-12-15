@@ -108,13 +108,13 @@ def normalize(filename):
 
 
 def del_empty_dirs(trg_path=argv_path):
-    for dirpath, _, _ in os.walk(trg_path, topdown=False):  # Listing the files
+    for dirpath, _, _ in os.walk(trg_path, topdown=False):
         if dirpath == trg_path:
             break
         try:
             os.rmdir(dirpath)
-        except OSError as ex:
-            print(ex)
+        except OSError:
+            pass
 
 
 def sorter(path=argv_path):
