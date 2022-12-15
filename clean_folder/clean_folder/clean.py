@@ -4,9 +4,16 @@ import shutil
 from sys import argv
 
 
-argv_path = Path(argv[1])
+try:
+    argv_path = Path(argv[1])
+except IndexError:
+    print("Please enter the path to the folder!")
+    exit()
+else:
+    argv_path = Path(argv[1])
+
 if not Path(argv_path).exists():
-    print("Path doesn't exist, please try again")
+    print("Path doesn't exist, please try again!")
     exit()
 
 
